@@ -1,6 +1,6 @@
-var apiURL = "http://localhost:3000"
 var request = require('request');
 var bodyParser = require('body-parser');
+var config = require('./config');
 
 var express = require('express')
     , routes  = require('./routes')
@@ -11,7 +11,7 @@ var express = require('express')
 var app = express()
 
 // all environments
-app.set('port', process.env.PORT || 3001)
+app.set('port', process.env.PORT || config.values.port)
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
 app.use(express.favicon())
@@ -145,7 +145,7 @@ var sync = function() {
     buildDataJson(function(data, dataToUpdate) {
 
         request({
-            uri: apiURL + "/pushEverything",
+            uri: config.values.apiURL + "/pushEverything",
             method: "POST",
             form: data
         }, function(error, response, body) {
@@ -206,7 +206,7 @@ var sync = function() {
 var loadHundredProduits = function() {
 
     request({
-        uri: apiURL + "/produits/light",
+        uri: config.values.apiURL + "/produits/light",
         method: "GET"
     }, function(error, response, body) {
 

@@ -1,8 +1,10 @@
+var config = require('../config');
+
 var fs        = require('fs')
   , path      = require('path')
   , Sequelize = require('sequelize')
   , lodash    = require('lodash')
-  , sequelize = new Sequelize('bourse_caisse', 'root', 'kazuki69')
+  , sequelize = new Sequelize(config.values.dbname, config.values.dbuser, config.values.dbpasswd)
   , db        = {}
 
 fs
