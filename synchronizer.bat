@@ -1,1 +1,2 @@
-forever start C:\bourse-sync-client\app.js
+cd C:\
+forever start bourse-sync-client\app.js
