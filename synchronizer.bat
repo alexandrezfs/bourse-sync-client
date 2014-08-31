@@ -1,0 +1,1 @@
+forever start C:\bourse-sync-client\app.js
