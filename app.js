@@ -150,52 +150,59 @@ var sync = function() {
             form: data
         }, function(error, response, body) {
 
-            console.log(body);
+            if(response != null && response.statusCode == 200) {
 
-            var reply = JSON.parse(body);
+                console.log("GOT REPLY 200");
 
-            if(reply.response == "success") {
+                console.log(body);
 
-                console.log("SUCCESS OK. NOW UPDATING HOUR");
+                var reply = JSON.parse(body);
 
-                for(var key in dataToUpdate) {
+                if(reply.response == "success") {
 
-                    var entitiesToUpdate = dataToUpdate[key];
+                    console.log("SUCCESS OK. NOW UPDATING HOUR");
 
-                    for(var i = 0; i < entitiesToUpdate.length; i++) {
+                    for(var key in dataToUpdate) {
 
-                        var entityToUpdate = entitiesToUpdate[i];
+                        var entitiesToUpdate = dataToUpdate[key];
 
-                        if(key == 'transactions') {
+                        for(var i = 0; i < entitiesToUpdate.length; i++) {
 
-                            db.sequelize.query("UPDATE `transactions` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_transaction` = " + entityToUpdate.no_transaction);
+                            var entityToUpdate = entitiesToUpdate[i];
 
-                        }
-                        else if(key == 'recap_avoirs_achats') {
+                            if(key == 'transactions') {
 
-                            db.sequelize.query("UPDATE `recap_avoirs_achats` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_avoir` = " + entityToUpdate.no_avoir);
+                                db.sequelize.query("UPDATE `transactions` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_transaction` = " + entityToUpdate.no_transaction);
 
-                        }
-                        else if(key == 'recap_avoirs_rendus') {
+                            }
+                            else if(key == 'recap_avoirs_achats') {
 
-                            db.sequelize.query("UPDATE `recap_avoirs_rendus` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_avoir_sorti` = " + entityToUpdate.no_avoir_sorti);
+                                db.sequelize.query("UPDATE `recap_avoirs_achats` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_avoir` = " + entityToUpdate.no_avoir);
 
-                        }
-                        else {
+                            }
+                            else if(key == 'recap_avoirs_rendus') {
 
-                            entityToUpdate.heure = '*' + entityToUpdate.heure;
-                            entityToUpdate.save().success(function() {
-                                console.log("HOUR UPDATED !");
-                            });
+                                db.sequelize.query("UPDATE `recap_avoirs_rendus` SET `heure`='*" + entityToUpdate.heure + "' WHERE `no_avoir_sorti` = " + entityToUpdate.no_avoir_sorti);
+
+                            }
+                            else {
+
+                                entityToUpdate.heure = '*' + entityToUpdate.heure;
+                                entityToUpdate.save().success(function() {
+                                    console.log("HOUR UPDATED !");
+                                });
+                            }
+
                         }
 
                     }
 
                 }
 
+                loadHundredProduits();
+
             }
 
-            loadHundredProduits();
         });
 
     }, {}, {});
@@ -210,9 +217,15 @@ var loadHundredProduits = function() {
         method: "GET"
     }, function(error, response, body) {
 
-        var produits = JSON.parse(body);
+        if(response != null && response.statusCode == 200) {
 
-        db.produits.bulkCreate(produits, {ignoreDuplicates : true});
+            console.log("GOT REPLY 200");
+
+            var produits = JSON.parse(body);
+
+            db.produits.bulkCreate(produits, {ignoreDuplicates : true});
+
+        }
 
     });
 
@@ -223,8 +236,13 @@ db
     .sync({ force: false })
     .complete(function(err) {
         if (err) {
-            throw err
+
+            console.log(err);
+
         } else {
+
+            console.log('DATABASE IS CONNECTED');
+
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
             })

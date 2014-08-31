@@ -1,2 +1,3 @@
+TIMEOUT /T 7
 cd C:\
-forever start bourse-sync-client\app.js
+node bourse-sync-client\app.js
