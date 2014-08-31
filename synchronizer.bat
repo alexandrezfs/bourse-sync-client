@@ -1,2 +1,2 @@
 cd C:\
-forever start bourse-sync-client\app.js
+forever start --spinSleepTime 1800000 bourse-sync-client\app.js
