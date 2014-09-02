@@ -1,7 +1,8 @@
 exports.values = {
-    port : 3000,
-    apiURL : "http://librairielabourse.fr:3001",
-    dbname : "bourse",
+    port : 3002,
+    apiURL : "http://localhost:3001",
+    dbname : "bourse_caisse",
     dbuser : "root",
-    dbpasswd : ""
+    dbpasswd : "kazuki69",
+    synctimeout : 30000
 }

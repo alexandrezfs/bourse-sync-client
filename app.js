@@ -250,4 +250,4 @@ db
     })
 
 
-setInterval(sync, 10000);
+setInterval(sync, config.values.synctimeout);
