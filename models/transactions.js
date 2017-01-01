@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     no_transaction: {
       type: DataTypes.INTEGER(255),
       allowNull: false,
+      primaryKey: true
     },
     heure: {
       type: DataTypes.STRING,
