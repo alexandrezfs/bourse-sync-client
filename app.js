@@ -110,6 +110,7 @@ var buildDataJson = function(callback, data, dataToUpdate) {
 
                                                     data.localisation = JSON.stringify(localisation);
 
+                                                    db.recap_global.removeAttribute('id');
                                                     db.recap_global.find({where: { magasin : localisation.valeur, date : getCurrentDate() }}).success(function(recap_global) {
 
                                                         data.recap_global = JSON.stringify(recap_global);
