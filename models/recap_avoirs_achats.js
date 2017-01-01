@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     no_avoir: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
+      primaryKey: true
     },
     date: {
       type: DataTypes.STRING,

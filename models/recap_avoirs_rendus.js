@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     no_avoir_sorti: {
       type: DataTypes.INTEGER(255),
       allowNull: false,
+      primaryKey: true
     },
     no_transaction: {
       type: DataTypes.STRING,
