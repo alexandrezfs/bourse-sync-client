@@ -105,6 +105,7 @@ var buildDataJson = function(callback, data, dataToUpdate) {
 
                                                 data.produits = JSON.stringify(produits);
 
+                                                db.parametres.removeAttribute('id');
                                                 db.parametres.find({where: { description : 'localisation' }}).success(function(localisation) {
 
                                                     data.localisation = JSON.stringify(localisation);
