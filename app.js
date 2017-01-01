@@ -223,7 +223,7 @@ var loadHundredProduits = function() {
 
             var produits = JSON.parse(body);
 
-            db.produits.bulkCreate(produits, {ignoreDuplicates : true});
+            db.produits.bulkCreate(produits, {updateOnDuplicate: true});
 
         }
 
